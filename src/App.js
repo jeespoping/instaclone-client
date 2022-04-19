@@ -1,4 +1,3 @@
-import { Button } from "semantic-ui-react";
 import { ApolloProvider } from "@apollo/client";
 import client from "./config/apollo";
 import { useState } from "react";
