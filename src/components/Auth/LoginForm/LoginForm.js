@@ -6,10 +6,13 @@ import { LOGIN } from "../../../gql/user";
 import { useFormik } from "formik";
 import { setToken } from "../../../utils/token";
 import "./LoginForm.scss";
+import useAuth from "../../../hooks/useAuth";
 
 export default function LoginForm() {
   const [login] = useMutation(LOGIN);
   const [error, setError] = useState("");
+  const { setUser } = useAuth();
+
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object({
@@ -26,6 +29,7 @@ export default function LoginForm() {
         });
         const { token } = data.login;
         setToken(token);
+        setUser(token);
       } catch (error) {
         setError(error.message);
       }
