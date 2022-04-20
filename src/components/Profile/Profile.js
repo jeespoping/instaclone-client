@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import "./Profile.scss";
 import ImageNoFound from "../../assets/png/avatar.png";
 import { GET_USER } from "../../gql/user";
+import UserNotFound from "../UserNotFound/UserNotFound";
 
 export default function Profile({ username }) {
   const { data, loading, error } = useQuery(GET_USER, {
@@ -13,7 +14,7 @@ export default function Profile({ username }) {
   if (loading) return null;
 
   if (error) {
-    return <h1>Usuario no encontrado</h1>;
+    return <UserNotFound />;
   }
 
   const { getUser } = data;
