@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 import { useMutation } from "@apollo/client";
 import { REGISTER } from "../../../gql/user";
 import "./RegisterForm.scss";
@@ -33,15 +34,17 @@ export default function RegisterForm({ setShowLogin }) {
       try {
         const newUser = formData;
         delete newUser.repeatPassword;
-        const result = await register({
+        await register({
           variables: {
             input: {
               ...newUser,
             },
           },
         });
-        console.log(result);
+        toast.success("Usuario registrado correctamente");
+        setShowLogin(true);
       } catch (error) {
+        toast.error(error.message);
         console.log(error.message);
       }
     },
