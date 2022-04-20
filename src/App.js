@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import Auth from "./pages/Auth/Auth";
 import { getToken } from "./utils/token";
 import AuthContext from "./context/AuthContext";
+import Home from "./pages/Home/Home";
 
 function App() {
   const [auth, setAuth] = useState(undefined);
@@ -38,7 +39,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={authData}>
-        {!auth ? <Auth /> : <h1>Estas Logueado</h1>}
+        {!auth ? <Auth /> : <Home />}
         <ToastContainer
           position="top-right"
           autoClose={5000}

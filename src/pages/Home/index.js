@@ -1,0 +1,1 @@
+export { defaulto } from "./Home";
