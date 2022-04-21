@@ -4,15 +4,21 @@ import { useQuery } from "@apollo/client";
 import "./Profile.scss";
 import ImageNoFound from "../../assets/png/avatar.png";
 import { GET_USER } from "../../gql/user";
-import UserNotFound from "../UserNotFound/UserNotFound";
-import ModalBasic from "../Modal/ModalBasic/ModalBasic";
+import useAuth from "../../hooks/useAuth";
+import UserNotFound from "../UserNotFound";
+import ModalBasic from "../Modal/ModalBasic";
+import AvatarForm from "../User/AvatarForm/AvatarForm";
 
 export default function Profile({ username }) {
   const { data, loading, error } = useQuery(GET_USER, {
     variables: { username },
   });
 
+  const { auth } = useAuth();
+
   const [showModal, setShowModal] = useState(false);
+  const [tittleModal, setTittleModal] = useState("");
+  const [childrenModal, setChildrenModal] = useState(null);
 
   if (loading) return null;
 
@@ -20,13 +26,30 @@ export default function Profile({ username }) {
     return <UserNotFound />;
   }
 
+  const handlerModal = (type) => {
+    switch (type) {
+      case "avatar":
+        setTittleModal("Cambiar foto de perfil");
+        setChildrenModal(<AvatarForm setShowModal={setShowModal} />);
+        setShowModal(true);
+        break;
+
+      default:
+        break;
+    }
+  };
+
   const { getUser } = data;
 
   return (
     <>
       <Grid className="profile">
         <Grid.Column width={5} className="profile__left">
-          <Image src={ImageNoFound} avatar onClick={() => setShowModal(true)} />
+          <Image
+            src={ImageNoFound}
+            avatar
+            onClick={() => username === auth.username && handlerModal("avatar")}
+          />
         </Grid.Column>
         <Grid.Column width={10} className="profile__right">
           <div>HeaderPrfile</div>
@@ -44,11 +67,8 @@ export default function Profile({ username }) {
           </div>
         </Grid.Column>
       </Grid>
-      <ModalBasic show={showModal} setShow={setShowModal} title="Subir avatar">
-        <p>Opciones ...</p>
-        <p>Opciones ...</p>
-        <p>Opciones ...</p>
-        <p>Opciones ...</p>
+      <ModalBasic show={showModal} setShow={setShowModal} title={tittleModal}>
+        {childrenModal}
       </ModalBasic>
     </>
   );
