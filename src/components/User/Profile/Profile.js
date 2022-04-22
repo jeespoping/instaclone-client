@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Grid, Image } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
 import "./Profile.scss";
-import ImageNoFound from "../../assets/png/avatar.png";
-import { GET_USER } from "../../gql/user";
-import useAuth from "../../hooks/useAuth";
-import UserNotFound from "../UserNotFound";
-import ModalBasic from "../Modal/ModalBasic";
-import AvatarForm from "../User/AvatarForm/AvatarForm";
+import ImageNoFound from "../../../assets/png/avatar.png";
+import { GET_USER } from "../../../gql/user";
+import useAuth from "../../../hooks/useAuth";
+import UserNotFound from "../../UserNotFound";
+import ModalBasic from "../../Modal/ModalBasic";
+import AvatarForm from "../AvatarForm";
 
 export default function Profile({ username }) {
   const { data, loading, error } = useQuery(GET_USER, {
