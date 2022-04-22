@@ -12,7 +12,6 @@ export default function AvatarForm({ setShowModal }) {
     const file = acceptedFile[0];
 
     try {
-      console.log(file);
       const result = await updateAvatar({ variables: { file } });
       console.log(result);
     } catch (error) {
