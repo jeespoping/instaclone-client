@@ -30,7 +30,9 @@ export default function Profile({ username }) {
     switch (type) {
       case "avatar":
         setTittleModal("Cambiar foto de perfil");
-        setChildrenModal(<AvatarForm setShowModal={setShowModal} />);
+        setChildrenModal(
+          <AvatarForm auth={auth} setShowModal={setShowModal} />
+        );
         setShowModal(true);
         break;
 
@@ -46,7 +48,7 @@ export default function Profile({ username }) {
       <Grid className="profile">
         <Grid.Column width={5} className="profile__left">
           <Image
-            src={ImageNoFound}
+            src={getUser.avatar ? getUser.avatar : ImageNoFound}
             avatar
             onClick={() => username === auth.username && handlerModal("avatar")}
           />
