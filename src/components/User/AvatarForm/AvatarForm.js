@@ -30,6 +30,7 @@ export default function AvatarForm({ setShowModal, auth }) {
       });
     },
   });
+
   const [loading, setLoading] = useState(false);
 
   const onDrop = useCallback(async (acceptedFile) => {
