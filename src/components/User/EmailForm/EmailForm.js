@@ -7,7 +7,7 @@ import { UPDATE_USER } from "../../../gql/user";
 import "./EmailForm.scss";
 import { toast } from "react-toastify";
 
-export default function EmailForm({ setShowModal, currentEmail }) {
+export default function EmailForm({ setShowModal, currentEmail, refetch }) {
   const [updateUser] = useMutation(UPDATE_USER);
   const formik = useFormik({
     initialValues: {
@@ -25,6 +25,7 @@ export default function EmailForm({ setShowModal, currentEmail }) {
             },
           },
         });
+        refetch();
         setShowModal(false);
       } catch (error) {
         toast.error("Error al actualizar el email");

@@ -12,6 +12,7 @@ export default function SettingsForm({
   setChildrenModal,
   setTittleModal,
   getUser,
+  refetch,
 }) {
   const { logout } = useAuth();
   const client = useApolloClient();
@@ -25,7 +26,11 @@ export default function SettingsForm({
   const onChageEmail = () => {
     setTittleModal("Cambiar tu email");
     setChildrenModal(
-      <EmailForm currentEmail={getUser.email} setShowModal={setShowModal} />
+      <EmailForm
+        refetch={refetch}
+        currentEmail={getUser.email}
+        setShowModal={setShowModal}
+      />
     );
   };
 

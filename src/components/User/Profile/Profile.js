@@ -12,7 +12,7 @@ import HeaderProfile from "./HeaderProfile";
 import SettingsForm from "../SettingsForm";
 
 export default function Profile({ username }) {
-  const { data, loading, error } = useQuery(GET_USER, {
+  const { data, loading, error, refetch } = useQuery(GET_USER, {
     variables: { username },
   });
 
@@ -43,6 +43,7 @@ export default function Profile({ username }) {
         setTittleModal("");
         setChildrenModal(
           <SettingsForm
+            refetch={refetch}
             setShowModal={setShowModal}
             setTittleModal={setTittleModal}
             setChildrenModal={setChildrenModal}
