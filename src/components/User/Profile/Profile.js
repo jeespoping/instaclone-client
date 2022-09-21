@@ -9,6 +9,7 @@ import UserNotFound from "../../UserNotFound";
 import ModalBasic from "../../Modal/ModalBasic";
 import AvatarForm from "../AvatarForm";
 import HeaderProfile from "./HeaderProfile";
+import SettingsForm from "../SettingsForm";
 
 export default function Profile({ username }) {
   const { data, loading, error } = useQuery(GET_USER, {
@@ -38,11 +39,7 @@ export default function Profile({ username }) {
         break;
       case "setting":
         setTittleModal("");
-        setChildrenModal(
-          <div>
-            <h2>juste del perfil</h2>
-          </div>
-        );
+        setChildrenModal(<SettingsForm setShowModal={setShowModal} />);
         setShowModal(true);
         break;
       default:
