@@ -28,6 +28,8 @@ export default function Profile({ username }) {
     return <UserNotFound />;
   }
 
+  const { getUser } = data;
+
   const handlerModal = (type) => {
     switch (type) {
       case "avatar":
@@ -44,6 +46,7 @@ export default function Profile({ username }) {
             setShowModal={setShowModal}
             setTittleModal={setTittleModal}
             setChildrenModal={setChildrenModal}
+            getUser={getUser}
           />
         );
         setShowModal(true);
@@ -52,8 +55,6 @@ export default function Profile({ username }) {
         break;
     }
   };
-
-  const { getUser } = data;
 
   return (
     <>
