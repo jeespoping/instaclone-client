@@ -36,7 +36,15 @@ export default function Profile({ username }) {
         );
         setShowModal(true);
         break;
-
+      case "setting":
+        setTittleModal("");
+        setChildrenModal(
+          <div>
+            <h2>juste del perfil</h2>
+          </div>
+        );
+        setShowModal(true);
+        break;
       default:
         break;
     }
@@ -55,7 +63,11 @@ export default function Profile({ username }) {
           />
         </Grid.Column>
         <Grid.Column width={10} className="profile__right">
-          <HeaderProfile getUser={getUser} auth={auth} />
+          <HeaderProfile
+            handlerModal={handlerModal}
+            getUser={getUser}
+            auth={auth}
+          />
           <div>Followers</div>
           <div className="other">
             <p className="name">{getUser.name}</p>
