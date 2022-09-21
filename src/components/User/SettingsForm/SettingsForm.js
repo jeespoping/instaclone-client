@@ -7,6 +7,7 @@ import "./SettingsForm.scss";
 import PasswordForm from "../PasswordForm";
 import EmailForm from "../EmailForm";
 import DescriptionForm from "../DescriptionForm";
+import SiteWebForm from "../SiteWebForm";
 
 export default function SettingsForm({
   setShowModal,
@@ -46,6 +47,17 @@ export default function SettingsForm({
     );
   };
 
+  const onChangeSiteWeb = () => {
+    setTittleModal("Cambiar tu sitio web");
+    setChildrenModal(
+      <SiteWebForm
+        refetch={refetch}
+        currentSiteWeb={getUser.siteWeb}
+        setShowModal={setShowModal}
+      />
+    );
+  };
+
   const onLogout = () => {
     client.clearStore();
     logout();
@@ -57,7 +69,7 @@ export default function SettingsForm({
       <Button onClick={onChangePassword}>Cambiar contraseña</Button>
       <Button onClick={onChageEmail}>Cambiar email</Button>
       <Button onClick={onChangeDescription}>Descripcion</Button>
-      <Button>Sitio web</Button>
+      <Button onClick={onChangeSiteWeb}>Sitio web</Button>
       <Button onClick={onLogout}>Cerrar sesion</Button>
       <Button onClick={() => setShowModal(false)}>Cancelar</Button>
     </div>
