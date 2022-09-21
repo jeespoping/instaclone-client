@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useApolloClient } from "@apollo/client";
 import useAuth from "../../../hooks/useAuth";
 import "./SettingsForm.scss";
+import PasswordForm from "../PasswordForm";
 
 export default function SettingsForm({
   setShowModal,
@@ -16,11 +17,7 @@ export default function SettingsForm({
 
   const onChangePssword = () => {
     setTittleModal("Cambiar tu contraseña");
-    setChildrenModal(
-      <div>
-        <h2>FormPassword</h2>
-      </div>
-    );
+    setChildrenModal(<PasswordForm />);
   };
 
   const onLogout = () => {
