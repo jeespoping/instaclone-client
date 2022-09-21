@@ -8,6 +8,7 @@ import useAuth from "../../../hooks/useAuth";
 import UserNotFound from "../../UserNotFound";
 import ModalBasic from "../../Modal/ModalBasic";
 import AvatarForm from "../AvatarForm";
+import HeaderProfile from "./HeaderProfile";
 
 export default function Profile({ username }) {
   const { data, loading, error } = useQuery(GET_USER, {
@@ -54,7 +55,7 @@ export default function Profile({ username }) {
           />
         </Grid.Column>
         <Grid.Column width={10} className="profile__right">
-          <div>HeaderPrfile</div>
+          <HeaderProfile getUser={getUser} auth={auth} />
           <div>Followers</div>
           <div className="other">
             <p className="name">{getUser.name}</p>
