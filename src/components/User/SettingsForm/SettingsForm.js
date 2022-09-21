@@ -5,6 +5,7 @@ import { useApolloClient } from "@apollo/client";
 import useAuth from "../../../hooks/useAuth";
 import "./SettingsForm.scss";
 import PasswordForm from "../PasswordForm";
+import EmailForm from "../EmailForm";
 
 export default function SettingsForm({
   setShowModal,
@@ -15,9 +16,14 @@ export default function SettingsForm({
   const client = useApolloClient();
   const history = useHistory();
 
-  const onChangePssword = () => {
+  const onChangePassword = () => {
     setTittleModal("Cambiar tu contraseña");
     setChildrenModal(<PasswordForm onLogout={onLogout} />);
+  };
+
+  const onChageEmail = () => {
+    setTittleModal("Cambiar tu email");
+    setChildrenModal(<EmailForm setShowModal={setShowModal} />);
   };
 
   const onLogout = () => {
@@ -28,8 +34,8 @@ export default function SettingsForm({
 
   return (
     <div className="settings-form">
-      <Button onClick={onChangePssword}>Cambiar contraseña</Button>
-      <Button>Cambiar email</Button>
+      <Button onClick={onChangePassword}>Cambiar contraseña</Button>
+      <Button onClick={onChageEmail}>Cambiar email</Button>
       <Button>Descripcion</Button>
       <Button>Sitio web</Button>
       <Button onClick={onLogout}>Cerrar sesion</Button>
