@@ -6,6 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import "./SettingsForm.scss";
 import PasswordForm from "../PasswordForm";
 import EmailForm from "../EmailForm";
+import DescriptionForm from "../DescriptionForm";
 
 export default function SettingsForm({
   setShowModal,
@@ -34,6 +35,17 @@ export default function SettingsForm({
     );
   };
 
+  const onChangeDescription = () => {
+    setTittleModal("Cambiar tu descripcion");
+    setChildrenModal(
+      <DescriptionForm
+        refetch={refetch}
+        currentDescription=""
+        setShowModal={setShowModal}
+      />
+    );
+  };
+
   const onLogout = () => {
     client.clearStore();
     logout();
@@ -44,7 +56,7 @@ export default function SettingsForm({
     <div className="settings-form">
       <Button onClick={onChangePassword}>Cambiar contraseña</Button>
       <Button onClick={onChageEmail}>Cambiar email</Button>
-      <Button>Descripcion</Button>
+      <Button onClick={onChangeDescription}>Descripcion</Button>
       <Button>Sitio web</Button>
       <Button onClick={onLogout}>Cerrar sesion</Button>
       <Button onClick={() => setShowModal(false)}>Cancelar</Button>
