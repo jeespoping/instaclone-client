@@ -40,7 +40,7 @@ export default function SettingsForm({
     setChildrenModal(
       <DescriptionForm
         refetch={refetch}
-        currentDescription=""
+        currentDescription={getUser.description}
         setShowModal={setShowModal}
       />
     );
