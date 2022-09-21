@@ -5,10 +5,23 @@ import { useApolloClient } from "@apollo/client";
 import useAuth from "../../../hooks/useAuth";
 import "./SettingsForm.scss";
 
-export default function SettingsForm({ setShowModal }) {
+export default function SettingsForm({
+  setShowModal,
+  setChildrenModal,
+  setTittleModal,
+}) {
   const { logout } = useAuth();
   const client = useApolloClient();
   const history = useHistory();
+
+  const onChangePssword = () => {
+    setTittleModal("Cambiar tu contraseña");
+    setChildrenModal(
+      <div>
+        <h2>FormPassword</h2>
+      </div>
+    );
+  };
 
   const onLogout = () => {
     client.clearStore();
@@ -18,7 +31,7 @@ export default function SettingsForm({ setShowModal }) {
 
   return (
     <div className="settings-form">
-      <Button>Cambiar contraseña</Button>
+      <Button onClick={onChangePssword}>Cambiar contraseña</Button>
       <Button>Cambiar email</Button>
       <Button>Descripcion</Button>
       <Button>Sitio web</Button>
