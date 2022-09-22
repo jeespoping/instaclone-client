@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_FOLLOWERS } from "../../../../gql/follow";
 import "./Followers.scss";
 import { size } from "lodash";
 
 export default function Followers({ username }) {
-  const { data: dataFollowers, loading: loadingFollowers } = useQuery(
-    GET_FOLLOWERS,
-    {
-      variables: {
-        username,
-      },
-    }
-  );
+  const {
+    data: dataFollowers,
+    loading: loadingFollowers,
+    startPolling: startPollingFollowers,
+    stopPolling: stopPollingFollowers,
+  } = useQuery(GET_FOLLOWERS, {
+    variables: {
+      username,
+    },
+  });
+
+  useEffect(() => {
+    startPollingFollowers(1000);
+    return () => {
+      stopPollingFollowers();
+    };
+  }, [startPollingFollowers, stopPollingFollowers]);
 
   if (loadingFollowers) return null;
 
