@@ -4,6 +4,7 @@ import { GET_FOLLOWERS } from "../../../../gql/follow";
 import "./Followers.scss";
 import { size } from "lodash";
 import ModalBasic from "../../../Modal/ModalBasic";
+import ListUsers from "../../ListUsers";
 
 export default function Followers({ username }) {
   const [showmodal, setShowmodal] = useState(false);
@@ -31,9 +32,10 @@ export default function Followers({ username }) {
   const openFollowers = () => {
     setTitleModal("Seguidores");
     setChildrenModal(
-      <div>
-        <h3>Lista de seguidores</h3>
-      </div>
+      <ListUsers
+        setShowmodal={setShowmodal}
+        users={dataFollowers.getFollowers}
+      />
     );
     setShowmodal(true);
   };
@@ -54,7 +56,7 @@ export default function Followers({ username }) {
         </p>
       </div>
       <ModalBasic show={showmodal} setShow={setShowmodal} title={titleModal}>
-        <h2>Usuario</h2>
+        {childrenModal}
       </ModalBasic>
     </>
   );
