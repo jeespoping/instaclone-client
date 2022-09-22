@@ -58,6 +58,17 @@ export default function Followers({ username }) {
     setShowmodal(true);
   };
 
+  const openFolloweds = () => {
+    setTitleModal("Usuarios seguidos");
+    setChildrenModal(
+      <ListUsers
+        setShowmodal={setShowmodal}
+        users={dataFolloweds.getFolloweds}
+      />
+    );
+    setShowmodal(true);
+  };
+
   if (loadingFollowers || loadingFolloweds) return null;
 
   return (
@@ -69,7 +80,7 @@ export default function Followers({ username }) {
         <p className="link" onClick={openFollowers}>
           <span>{size(dataFollowers.getFollowers)}</span> seguidores
         </p>
-        <p className="link">
+        <p onClick={openFolloweds} className="link">
           <span>{size(dataFolloweds.getFolloweds)}</span> seguidos
         </p>
       </div>
