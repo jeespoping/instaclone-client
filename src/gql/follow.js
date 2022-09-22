@@ -5,3 +5,9 @@ export const IS_FOLLOW = gql`
     isFollow(username: $username)
   }
 `;
+
+export const FOLLOW = gql`
+  mutation follow($username: String!) {
+    follow(username: $username)
+  }
+`;
