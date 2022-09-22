@@ -60,7 +60,6 @@ export default function Search() {
 }
 
 function ResultSearch({ data }) {
-  console.log(data);
   return (
     <Link className="search-users__item" to={`/${data.username}`}>
       <Image src={data.avatar || ImageNoFound} />
