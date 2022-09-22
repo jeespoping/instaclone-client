@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Search as SearchUS } from "semantic-ui-react";
+import { Search as SearchUS, Image } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import { size } from "lodash";
 import { useQuery } from "@apollo/client";
 import { SEARCH } from "../../../gql/user";
+import ImageNoFound from "../../../assets/png/avatar.png";
 import "./Search.scss";
 
 export default function Search() {
@@ -23,7 +25,7 @@ export default function Search() {
           key: index,
           title: user.name,
           username: user.username,
-          avata: user.avatar,
+          avatar: user.avatar,
         });
       });
       setResult(users);
@@ -37,6 +39,11 @@ export default function Search() {
     else setSearch(null);
   };
 
+  const handleResultSelect = () => {
+    setSearch(null);
+    setResult([]);
+  };
+
   return (
     <SearchUS
       className="search-users"
@@ -44,6 +51,7 @@ export default function Search() {
       input={{ icon: "search", iconPosition: "left" }}
       loading={loading}
       value={search || ""}
+      onResultSelect={handleResultSelect}
       results={result}
       resultRenderer={(e) => <ResultSearch data={e} />}
       onSearchChange={onChange}
@@ -52,9 +60,14 @@ export default function Search() {
 }
 
 function ResultSearch({ data }) {
+  console.log(data);
   return (
-    <div>
-      <h2>Hola mundo</h2>
-    </div>
+    <Link className="search-users__item" to={`/${data.username}`}>
+      <Image src={data.avatar || ImageNoFound} />
+      <div>
+        <p>{data.title}</p>
+        <p>{data.username}</p>
+      </div>
+    </Link>
   );
 }
