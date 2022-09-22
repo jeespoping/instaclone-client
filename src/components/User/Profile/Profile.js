@@ -10,6 +10,7 @@ import ModalBasic from "../../Modal/ModalBasic";
 import AvatarForm from "../AvatarForm";
 import HeaderProfile from "./HeaderProfile";
 import SettingsForm from "../SettingsForm";
+import Followers from "./Followers";
 
 export default function Profile({ username }) {
   const { data, loading, error, refetch } = useQuery(GET_USER, {
@@ -73,7 +74,7 @@ export default function Profile({ username }) {
             getUser={getUser}
             auth={auth}
           />
-          <div>Followers</div>
+          <Followers username={username} />
           <div className="other">
             <p className="name">{getUser.name}</p>
             {getUser.siteWeb && (
