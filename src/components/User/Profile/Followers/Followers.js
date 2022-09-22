@@ -1,17 +1,31 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
+import { GET_FOLLOWERS } from "../../../../gql/follow";
 import "./Followers.scss";
+import { size } from "lodash";
 
 export default function Followers({ username }) {
+  const { data: dataFollowers, loading: loadingFollowers } = useQuery(
+    GET_FOLLOWERS,
+    {
+      variables: {
+        username,
+      },
+    }
+  );
+
+  if (loadingFollowers) return null;
+
   return (
     <div className="followers">
       <p>
-        <span>50</span> publicaciones
+        <span>**</span> publicaciones
       </p>
       <p className="link">
-        <span>267</span> seguidores
+        <span>{size(dataFollowers.getFollowers)}</span> seguidores
       </p>
       <p className="link">
-        <span>165</span> seguidos
+        <span>**</span> seguidos
       </p>
     </div>
   );
