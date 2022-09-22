@@ -23,7 +23,16 @@ export const GET_FOLLOWERS = gql`
     getFollowers(username: $username) {
       username
       name
-      email
+      avatar
+    }
+  }
+`;
+
+export const GET_FOLLOWEDS = gql`
+  query getFolloweds($username: String!) {
+    getFolloweds(username: $username) {
+      username
+      name
       avatar
     }
   }

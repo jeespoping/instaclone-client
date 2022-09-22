@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_FOLLOWERS } from "../../../../gql/follow";
+import { GET_FOLLOWEDS, GET_FOLLOWERS } from "../../../../gql/follow";
 import "./Followers.scss";
 import { size } from "lodash";
 import ModalBasic from "../../../Modal/ModalBasic";
@@ -22,12 +22,30 @@ export default function Followers({ username }) {
     },
   });
 
+  const {
+    data: dataFolloweds,
+    loading: loadingFolloweds,
+    startPolling: startPollingFolloweds,
+    stopPolling: stopPollingFolloweds,
+  } = useQuery(GET_FOLLOWEDS, {
+    variables: {
+      username,
+    },
+  });
+
   useEffect(() => {
     startPollingFollowers(1000);
     return () => {
       stopPollingFollowers();
     };
   }, [startPollingFollowers, stopPollingFollowers]);
+
+  useEffect(() => {
+    startPollingFolloweds(1000);
+    return () => {
+      stopPollingFolloweds();
+    };
+  }, [startPollingFolloweds, stopPollingFolloweds]);
 
   const openFollowers = () => {
     setTitleModal("Seguidores");
@@ -40,7 +58,7 @@ export default function Followers({ username }) {
     setShowmodal(true);
   };
 
-  if (loadingFollowers) return null;
+  if (loadingFollowers || loadingFolloweds) return null;
 
   return (
     <>
@@ -52,7 +70,7 @@ export default function Followers({ username }) {
           <span>{size(dataFollowers.getFollowers)}</span> seguidores
         </p>
         <p className="link">
-          <span>**</span> seguidos
+          <span>{size(dataFolloweds.getFolloweds)}</span> seguidos
         </p>
       </div>
       <ModalBasic show={showmodal} setShow={setShowmodal} title={titleModal}>
