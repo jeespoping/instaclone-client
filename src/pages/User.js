@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { PUBLICATIONS } from "../gql/publication";
 import { size } from "lodash";
 import Profile from "../components/User/Profile";
+import Publications from "../components/Publications";
 
 export default function User() {
   const { username } = useParams();
@@ -20,6 +21,7 @@ export default function User() {
   return (
     <>
       <Profile totalPublications={size(getPublications)} username={username} />
+      <Publications getPublications={getPublications} />
     </>
   );
 }
