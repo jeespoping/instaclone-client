@@ -1,10 +1,14 @@
 import React, { useCallback, useState } from "react";
 import { Modal, Icon, Button, Dimmer, Loader } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
+import { useMutation } from "@apollo/client";
+import { PUBLISH } from "../../../gql/publication";
 import "./ModalUpload.scss";
 
 export default function ModalUpload({ show, setShow }) {
   const [fileUpload, setFileUpload] = useState(null);
+
+  const [publish] = useMutation(PUBLISH);
 
   const onDrop = useCallback((acceptedFile) => {
     const file = acceptedFile[0];
@@ -26,8 +30,16 @@ export default function ModalUpload({ show, setShow }) {
     setShow(false);
   };
 
-  const onPublish = () => {
-    console.log("Publicando");
+  const onPublish = async () => {
+    try {
+      const result = await publish({
+        variables: {
+          file: fileUpload.file,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
