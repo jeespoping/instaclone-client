@@ -6,7 +6,7 @@ import { size } from "lodash";
 import ModalBasic from "../../../Modal/ModalBasic";
 import ListUsers from "../../ListUsers";
 
-export default function Followers({ username }) {
+export default function Followers({ username, totalPublications }) {
   const [showmodal, setShowmodal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [childrenModal, setChildrenModal] = useState(null);
@@ -75,7 +75,7 @@ export default function Followers({ username }) {
     <>
       <div className="followers">
         <p>
-          <span>**</span> publicaciones
+          <span>{totalPublications}</span> publicaciones
         </p>
         <p className="link" onClick={openFollowers}>
           <span>{size(dataFollowers.getFollowers)}</span> seguidores

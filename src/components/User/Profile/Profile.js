@@ -12,7 +12,7 @@ import HeaderProfile from "./HeaderProfile";
 import SettingsForm from "../SettingsForm";
 import Followers from "./Followers";
 
-export default function Profile({ username }) {
+export default function Profile({ username, totalPublications }) {
   const { data, loading, error, refetch } = useQuery(GET_USER, {
     variables: { username },
   });
@@ -74,7 +74,10 @@ export default function Profile({ username }) {
             getUser={getUser}
             auth={auth}
           />
-          <Followers username={username} />
+          <Followers
+            username={username}
+            totalPublications={totalPublications}
+          />
           <div className="other">
             <p className="name">{getUser.name}</p>
             {getUser.siteWeb && (
