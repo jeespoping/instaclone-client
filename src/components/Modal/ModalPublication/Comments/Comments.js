@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image } from "semantic-ui-react";
 import { map } from "lodash";
 import { Link } from "react-router-dom";
@@ -8,11 +8,19 @@ import ImageNoFound from "../../../../assets/png/avatar.png";
 import "./Comments.scss";
 
 export default function Comments({ publiction }) {
-  const { data, loading } = useQuery(GET_COMMENTS, {
+  const { data, loading, stopPolling, startPolling } = useQuery(GET_COMMENTS, {
     variables: {
       idPublication: publiction.id,
     },
   });
+
+  useEffect(() => {
+    startPolling(1000);
+    return () => {
+      stopPolling();
+    };
+  }, [stopPolling, startPolling]);
+
   if (loading) return null;
 
   const { getComments } = data;
