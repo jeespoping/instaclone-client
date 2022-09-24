@@ -1,6 +1,10 @@
 import React from "react";
+import { Image } from "semantic-ui-react";
+import { map } from "lodash";
+import { Link } from "react-router-dom";
 import { GET_COMMENTS } from "../../../../gql/comment";
 import { useQuery } from "@apollo/client";
+import ImageNoFound from "../../../../assets/png/avatar.png";
 import "./Comments.scss";
 
 export default function Comments({ publiction }) {
@@ -10,5 +14,24 @@ export default function Comments({ publiction }) {
     },
   });
   if (loading) return null;
-  return <div>Comments</div>;
+
+  const { getComments } = data;
+
+  return (
+    <div className="comments">
+      {map(getComments, (comment, index) => (
+        <Link
+          key={index}
+          to={`/${comment.idUser.username}`}
+          className="comment"
+        >
+          <Image src={comment.idUser.avatar || ImageNoFound} avatar />
+          <div>
+            <p>{comment.idUser.username}</p>
+            <p>{comment.comment}</p>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
 }
