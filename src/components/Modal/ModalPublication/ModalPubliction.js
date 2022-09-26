@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Grid } from "semantic-ui-react";
+import Actions from "./Actions";
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
 import "./ModalPubliction.scss";
@@ -22,7 +23,7 @@ export default function ModalPubliction({
 
         <Grid.Column className="modal-publication__right" width={6}>
           <Comments publiction={publiction} />
-          <div>Action</div>
+          <Actions publication={publiction} />
           <CommentForm publiction={publiction} />
         </Grid.Column>
       </Grid>
