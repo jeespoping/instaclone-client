@@ -1,13 +1,27 @@
 import React from "react";
 import { Icon } from "semantic-ui-react";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_LIKE, DELETE_LIKE, IS_LIKE } from "../../../../gql/like.";
+import {
+  ADD_LIKE,
+  COUNT_LIKE,
+  DELETE_LIKE,
+  IS_LIKE,
+} from "../../../../gql/like.";
 import "./Actions.scss";
 
 export default function Actions({ publication }) {
   const [addLike] = useMutation(ADD_LIKE);
   const [deleteLike] = useMutation(DELETE_LIKE);
   const { data, loading, refetch } = useQuery(IS_LIKE, {
+    variables: {
+      idPublication: publication.id,
+    },
+  });
+  const {
+    data: dataCount,
+    loading: loadingCount,
+    refetch: refetchCount,
+  } = useQuery(COUNT_LIKE, {
     variables: {
       idPublication: publication.id,
     },
@@ -21,6 +35,7 @@ export default function Actions({ publication }) {
         },
       });
       refetch();
+      refetchCount();
     } catch (error) {
       console.log(error);
     }
@@ -34,14 +49,16 @@ export default function Actions({ publication }) {
         },
       });
       refetch();
+      refetchCount();
     } catch (error) {
       console.log(error);
     }
   };
 
-  if (loading) return null;
+  if (loading || loadingCount) return null;
 
   const { isLike } = data;
+  const { countLike } = dataCount;
 
   return (
     <div className="actions">
@@ -50,7 +67,7 @@ export default function Actions({ publication }) {
         className={isLike ? "like active" : "like"}
         name={isLike ? "heart" : "heart outline"}
       />
-      27 Likes
+      {countLike} {countLike === 1 ? "Like" : "Likes"}
     </div>
   );
 }

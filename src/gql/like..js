@@ -17,3 +17,9 @@ export const DELETE_LIKE = gql`
     deleteLike(idPublication: $idPublication)
   }
 `;
+
+export const COUNT_LIKE = gql`
+  query countLike($idPublication: ID!) {
+    countLike(idPublication: $idPublication)
+  }
+`;
