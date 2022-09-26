@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "semantic-ui-react";
 import { useMutation, useQuery } from "@apollo/client";
 import {
@@ -10,6 +10,8 @@ import {
 import "./Actions.scss";
 
 export default function Actions({ publication }) {
+  const [loadingAction, setLoadingAction] = useState(false);
+
   const [addLike] = useMutation(ADD_LIKE);
   const [deleteLike] = useMutation(DELETE_LIKE);
   const { data, loading, refetch } = useQuery(IS_LIKE, {
@@ -28,6 +30,7 @@ export default function Actions({ publication }) {
   });
 
   const onAddLike = async () => {
+    setLoadingAction(true);
     try {
       await addLike({
         variables: {
@@ -39,9 +42,11 @@ export default function Actions({ publication }) {
     } catch (error) {
       console.log(error);
     }
+    setLoadingAction(false);
   };
 
   const onDeleteLike = async () => {
+    setLoadingAction(true);
     try {
       await deleteLike({
         variables: {
@@ -53,6 +58,17 @@ export default function Actions({ publication }) {
     } catch (error) {
       console.log(error);
     }
+    setLoadingAction(false);
+  };
+
+  const onAction = () => {
+    if (!loadingAction) {
+      if (isLike) {
+        onDeleteLike();
+      } else {
+        onAddLike();
+      }
+    }
   };
 
   if (loading || loadingCount) return null;
@@ -63,7 +79,7 @@ export default function Actions({ publication }) {
   return (
     <div className="actions">
       <Icon
-        onClick={isLike ? onDeleteLike : onAddLike}
+        onClick={onAction}
         className={isLike ? "like active" : "like"}
         name={isLike ? "heart" : "heart outline"}
       />
