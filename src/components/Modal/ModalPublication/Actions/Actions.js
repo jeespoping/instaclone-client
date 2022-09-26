@@ -6,7 +6,7 @@ import "./Actions.scss";
 
 export default function Actions({ publication }) {
   const [addLike] = useMutation(ADD_LIKE);
-  const { data, loading } = useQuery(IS_LIKE, {
+  const { data, loading, refetch } = useQuery(IS_LIKE, {
     variables: {
       idPublication: publication.id,
     },
@@ -19,9 +19,14 @@ export default function Actions({ publication }) {
           idPublication: publication.id,
         },
       });
+      refetch();
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const onDeleteLike = () => {
+    console.log("eliminar like");
   };
 
   if (loading) return null;
@@ -31,7 +36,7 @@ export default function Actions({ publication }) {
   return (
     <div className="actions">
       <Icon
-        onClick={onAddLike}
+        onClick={isLike ? onDeleteLike : onAddLike}
         className={isLike ? "like active" : "like"}
         name={isLike ? "heart" : "heart outline"}
       />
