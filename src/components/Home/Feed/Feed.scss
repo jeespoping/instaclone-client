@@ -25,5 +25,31 @@
                 font-weight: bold;
             }
         }
+
+        &-photo{
+            height: 600px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            &:hover {
+                cursor: pointer;
+                opacity: 0.95;
+            }
+        }
+
+        &-actions {
+            padding: 5px 5px;
+
+            i{
+                margin-right: 10px !important;
+            }
+        }
+
+        &-form {
+            > form{
+                position: relative !important;
+            }
+        }
     }
 }
