@@ -16,8 +16,13 @@ export default function Feed() {
   return (
     <div className="feed">
       {map(getPublicationsFlloweds, (publication, index) => (
-        <div key={index}>
-          <p>Hola</p>
+        <div key={index} className="feed__box">
+          <Link to={`/${publication.idUser.username}`}>
+            <div className="feed__box-user">
+              <Image src={publication.idUser.avatar || ImageNotFound} avatar />
+              <span>{publication.idUser.name}</span>
+            </div>
+          </Link>
         </div>
       ))}
     </div>
