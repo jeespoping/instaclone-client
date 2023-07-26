@@ -19,3 +19,19 @@ export const PUBLICATIONS = gql`
     }
   }
 `;
+
+export const GET_PUBLICATIONS_FOLLOWEDS = gql`
+  query getPublicationsFlloweds {
+    getPublicationsFlloweds {
+      id
+      idUser {
+        name
+        username
+        avatar
+      }
+      file
+      typeFile
+      createAt
+    }
+  }
+`;
